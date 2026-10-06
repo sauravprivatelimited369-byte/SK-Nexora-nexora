@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a reproducible problem in NEXORA.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem. Please remove personal information, screenshots containing user data, and any secrets before submitting.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: A clear description of the problem.
+      placeholder: Describe the unexpected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Include the page, action, and input needed to reproduce it. Never include real passwords, API keys, or personal data.
+      placeholder: |
+        1. Open …
+        2. Choose …
+        3. Observe …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser/OS or Node.js version, and whether this is local development or a deployment.
+      placeholder: Firefox 132 · Ubuntu 24.04 · local development
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or screenshots
+      description: Redact all secrets, account details, emails, and private project content first.
+      render: text
+    validations:
+      required: false

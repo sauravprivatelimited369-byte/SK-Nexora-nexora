@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a focused improvement to NEXORA.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the learner problem first. Avoid including private learner data or credentials.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+      placeholder: As a learner, I need … because …
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would a useful solution look like?
+      placeholder: Describe the smallest useful version.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or trade-offs considered
+    validations:
+      required: false
