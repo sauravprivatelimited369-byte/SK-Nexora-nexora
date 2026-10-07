@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/sauravprivatelimited369-byte/SK-Nexora-nexora/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/sauravprivatelimited369-byte/SK-Nexora-nexora/ci.yml?branch=arena%2Fe9a64c56-sk-nexora-nexora&label=CI&logo=githubactions&logoColor=white" alt="CI status"></a>
+  <a href="https://github.com/sauravprivatelimited369-byte/SK-Nexora-nexora/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/sauravprivatelimited369-byte/SK-Nexora-nexora/ci.yml?label=CI&logo=githubactions&logoColor=white" alt="CI status"></a>
   <img src="https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs" alt="Next.js 16">
   <img src="https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white" alt="React 19">
   <img src="https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white" alt="Strict TypeScript">
@@ -56,8 +56,7 @@ Engineering learning is more useful when the steps connect. NEXORA brings study,
 **Requirements:** Node.js 20.9+ and npm. Node 22 LTS is recommended.
 
 ```bash
-git clone --branch arena/e9a64c56-sk-nexora-nexora \
-  https://github.com/sauravprivatelimited369-byte/SK-Nexora-nexora.git
+git clone https://github.com/sauravprivatelimited369-byte/SK-Nexora-nexora.git
 cd SK-Nexora-nexora
 npm ci
 cp .env.example .env.local
@@ -97,7 +96,7 @@ npm run db:seed   # apply schema and idempotent starter data
 
 ## Publish the static GitHub Pages overview
 
-The static overview lives in [`docs/`](docs/). To publish it, a repository administrator can go to **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, select the project branch and the `/docs` folder, then save. GitHub Pages will serve it at `https://sauravprivatelimited369-byte.github.io/SK-Nexora-nexora/`. When the project is merged, switch the Pages source to `main` / `/docs`. This publishes only the static overview—not the interactive Next.js app.
+The static overview lives in [`docs/`](docs/). To publish it, a repository administrator can go to **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, select `main` and the `/docs` folder, then save. GitHub Pages will serve it at `https://sauravprivatelimited369-byte.github.io/SK-Nexora-nexora/`. This publishes only the static overview—not the interactive Next.js app. For GitHub link cards, upload [`docs/assets/nexora-social-preview.png`](docs/assets/nexora-social-preview.png) under **Settings → General → Social preview**.
 
 ## Deploy the interactive app
 
