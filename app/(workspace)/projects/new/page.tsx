@@ -1,0 +1,24 @@
+import Link from 'next/link';
+import { ArrowLeft, BrainCircuit, CircleHelp, Cog, GitBranch, ShieldCheck, Sparkles, Workflow } from 'lucide-react';
+import { getCurrentUser } from '@/lib/auth';
+import { query } from '@/lib/db';
+import { getMonthlyUsage, getPlanForUser, isAiConfigured } from '@/lib/ai';
+import { ProjectBuilderForm } from '@/components/project-builder-form';
+import { Badge } from '@/components/ui';
+
+export const metadata = { title: 'AI Project Builder' };
+
+export default async function NewProjectPage() {
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const [plan, used, projectCount] = await Promise.all([
+    getPlanForUser(user.id), getMonthlyUsage(user.id), query<{ count: number }>("SELECT COUNT(*)::int AS count FROM projects WHERE user_id=$1 AND status<>'archived'", [user.id]),
+  ]);
+  return <div className="page-stack project-builder-page"><div className="builder-breadcrumb"><Link href="/projects"><ArrowLeft size={13} /> Projects</Link><span>/</span><strong>Project Builder</strong></div><div className="project-builder-heading"><div><div className="page-kicker"><Sparkles size={13} /> AI PROJECT BUILDER <span className="page-kicker-divider">·</span> FLAGSHIP WORKFLOW</div><h1>Make the idea<br />buildable<span className="welcome-period">.</span></h1><p>Start with the problem you want to solve. Get a system plan, milestones, tests, and assumptions you can act on.</p></div><div className="builder-status-card"><span className={`provider-dot${isAiConfigured() ? ' is-connected' : ''}`} /><div><span>{isAiConfigured() ? 'AI GENERATION ENABLED' : 'STARTER PLANNER ACTIVE'}</span><small>{isAiConfigured() ? `${Math.max(0, plan.ai_request_limit - used)} of ${plan.ai_request_limit} AI requests remaining` : 'Structured engineering blueprint · no AI claims'}</small></div><Badge tone={isAiConfigured() ? 'lime' : 'blue'}>{isAiConfigured() ? 'CONNECTED' : 'READY'}</Badge></div></div>
+    {!isAiConfigured() && <div className="starter-disclosure"><span><CircleHelp size={15} /></span><p><strong>Transparent generation mode.</strong> This workspace uses a curated engineering blueprint matched to your brief; it is not an AI response. Configure a server-side <code>AI_API_KEY</code> for tailored AI project plans. Your project will be saved either way.</p><Link href="/pricing">Compare plans <ArrowLeft size={12} /></Link></div>}
+    <div className="builder-layout"><section className="builder-form-column"><div className="builder-step-heading"><span className="builder-step-number">01</span><div><h2>What do you want to build?</h2><p>Describe the user problem and the outcome you want to create.</p></div></div><ProjectBuilderForm aiConfigured={isAiConfigured()} />
+      <div className="builder-trust-row"><span><ShieldCheck size={13} /> Projects stay private by default</span><span><GitBranch size={13} /> Every milestone is editable</span><span><BrainCircuit size={13} /> Skill evidence needs artifacts</span></div>
+    </section><aside className="builder-side-column"><div className="builder-side-card builder-example-card"><div className="builder-side-card-top"><span className="builder-side-icon"><Workflow size={15} /></span><span>PROJECT EXAMPLE</span></div><h3>Smart agriculture monitoring</h3><p>From field conditions to a buildable, safety-aware prototype plan.</p><div className="example-plan-flow"><div><i>01</i><span><b>Define the problem</b><small>Moisture visibility & decisions</small></span></div><div><i>02</i><span><b>Design the system</b><small>Sensor → API → dashboard</small></span></div><div><i>03</i><span><b>Build & validate</b><small>Milestones, tests, safety</small></span></div></div><div className="example-plan-tags"><span>ESP32</span><span>Soil sensors</span><span>API</span></div></div><div className="builder-side-card builder-includes-card"><span className="card-eyebrow"><Cog size={13} /> WHAT YOUR WORKSPACE GETS</span>{['Problem & solution framing', 'Skills and components', 'Indicative budget + assumptions', 'Architecture and API / data design', 'Build milestones and task checklist', 'Testing, security and deployment notes'].map((item, index) => <div key={item} className="builder-includes-row"><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></div>)}<small>Estimated costs are not supplier quotes. Validate requirements before purchase or deployment.</small></div><div className="builder-side-note"><span className="builder-side-note-icon"><Sparkles size={14} /></span><p><strong>Better plans begin with a real user.</strong> Name who has the problem and what success looks like.</p></div></aside></div>
+    <div className="builder-usage-foot"><span>Plan: <strong>{plan.name}</strong></span><span>AI requests: <strong>{used}/{plan.ai_request_limit}</strong></span><span>Active projects: <strong>{projectCount.rows[0]?.count ?? 0}</strong></span><span>Every generated plan is clearly labeled by its source.</span></div>
+  </div>;
+}

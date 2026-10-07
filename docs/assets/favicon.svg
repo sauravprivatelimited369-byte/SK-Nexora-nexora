@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="NEXORA">
+  <rect x="2.8" y="2.8" width="42.4" height="42.4" rx="13" fill="#0d1715" stroke="#c9f36e" stroke-width="1.4" transform="rotate(45 24 24)"/>
+  <circle cx="24" cy="24" r="5.5" fill="#c9f36e"/>
+  <circle cx="24" cy="24" r="10" fill="none" stroke="#c9f36e" stroke-opacity=".18"/>
+</svg>
